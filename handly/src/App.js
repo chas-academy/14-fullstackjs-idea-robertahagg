@@ -31,8 +31,8 @@ class App extends Component {
           <Route path="/listview" component={ListView} />
           <Route path="/progress" component={Progress} />
           <Route path="/search" component={Search} />
-          <Route path="/admin" component={AdminLogin} />
-          <Route exact path="/admin-dashboard" component={AdminDashboard} />
+          <Route path="/admin/login" component={AdminLogin} />
+          <Route path="/admin/dashboard" component={AdminDashboard} />
           {/* <Route component={NotFoundPage} /> */}
         </Switch>
         </BrowserRouter>
