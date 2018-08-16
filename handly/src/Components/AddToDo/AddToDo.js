@@ -1,7 +1,10 @@
 import React from 'react';
+import { AddToDoForm } from '../../Containers';
 
 const AddToDo = () => {
-    return <p> Add to do title here! </p>
+    return <div><p>ADD NEW THING</p>
+    <AddToDoForm />
+    </div>
 }
 
 
