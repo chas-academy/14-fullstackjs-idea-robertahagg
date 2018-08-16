@@ -1,9 +1,9 @@
 import React from 'react';
 
-const login = () => {
+const ListView = () => {
     return <p> Login title here! </p>
 }
 
 
-export default login;
+export default ListView;
 
