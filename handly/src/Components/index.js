@@ -6,3 +6,4 @@ export { default as Login } from './Login/Login';
 export { default as Progress } from './Progress/Progress';
 export { default as Register } from './Register/Register';
 export { default as Search } from './Search/Search';
+export { default as NotFoundPage } from './NotFoundPage/NotFoundPage';
