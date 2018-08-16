@@ -1,7 +1,10 @@
 import React from 'react';
+import { RegisterForm } from '../../Containers';
 
 const Register = () => {
-    return <p> Register title here! </p>
+    return <div>
+    <RegisterForm />
+    </div>
 }
 
 
