@@ -1,8 +1,10 @@
 import React from 'react';
+import { LogInForm } from '../../Containers';
 
 const Login = () => {
-    return <p> LOGIN </p>
-    
+    return <div>
+    <LogInForm />
+    </div>
 }
 
 
