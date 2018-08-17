@@ -8,6 +8,7 @@ import {
   AdminLogin,
   ListView,
   Login,
+  LogOut,
   Progress,
   Register,
   Search,
@@ -26,6 +27,7 @@ class App extends Component {
           <Route exact path="/" component={Login} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/logout" component={LogOut} />
           <Route path="/addtodo" component={AddToDo} />
           {/* <Route path="/listview/todo/:id" component={Not done yet!} /> */}
           <Route path="/listview" component={ListView} />
