@@ -31,4 +31,7 @@ input {
     letter-spacing: 0.5ch;
     
 }
+.NoteBox{
+    border: 1px solid rgba(255,255,255,.25);
+}
 
