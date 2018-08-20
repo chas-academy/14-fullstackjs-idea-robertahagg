@@ -20,7 +20,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1> HANDLY </h1> 
         
         <BrowserRouter>
         <Switch>
