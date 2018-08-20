@@ -1,7 +1,11 @@
 import React from 'react';
+import './style.css';
+import admin from '../../Img/admin.jpg';
 
 const AdminDashboard = () => {
-    return <p> Admin Dashboard title here! </p>
+    return <div>
+        <img className="BackGroundImg" src={admin} alt="adminHeaderImg"/>
+        </div>
 }
 
 

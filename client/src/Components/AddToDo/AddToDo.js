@@ -1,8 +1,11 @@
 import React from 'react';
 import { AddToDoForm } from '../../Containers';
+import city from '../../Img/city.jpg';
+import './style.css';
 
 const AddToDo = () => {
-    return <div><p>ADD NEW THING</p>
+    return <div>
+         <img className="BackGroundImg" src={city} alt="cityOfNewYorkHeaderImg"/>
     <AddToDoForm />
     </div>
 }
