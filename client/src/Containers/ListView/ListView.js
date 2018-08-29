@@ -1,9 +1,12 @@
-import React from 'react';
+import React from "react";
 
 class ListView extends React.Component {
-    render() {
-      return <h1>LIST VIEW</h1>;
-    }
+  render() {
+    let todoList = this.props.data.map(todo => {
+      return <div>{todo.title}</div>;
+    });
+    return <div>{todoList}</div>;
   }
+}
 
-  export default ListView;
+export default ListView;
