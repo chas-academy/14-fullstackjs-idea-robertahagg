@@ -55,6 +55,30 @@ function addTodo(req, res) {
   );
 }
 
+function addNewUser(req, res) {
+  var MongoClient = require("mongodb").MongoClient;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      var db = client.db("handly");
+
+      console.log(req.body);
+
+      const newUser = req.body;
+
+      db.collection("users").save(newUser, function(err, result) {
+        if (err) throw err;
+
+        console.log(result);
+        res.send(result);
+      });
+    }
+  );
+}
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
@@ -63,6 +87,12 @@ app.post("/todos", (req, res) => addTodo(req, res));
 app.get("/todos/:id", (req, res) => res.send("Hello World!"));
 app.put("/todos/:id", (req, res) => res.send("Hello World!"));
 app.delete("/todos/:id", (req, res) => res.send("Hello World!"));
+
+app.get("/users", (req, res) => res.send("Hello World!"));
+app.post("/users", (req, res) => addNewUser(req, res));
+app.get("/users/:id", (req, res) => res.send("Hello World!"));
+app.put("/users/:id", (req, res) => res.send("Hello World!"));
+app.delete("/users/:id", (req, res) => res.send("Hello World!"));
 
 //app.use(express.static(path.join(__dirname, '../client/build')));
 
