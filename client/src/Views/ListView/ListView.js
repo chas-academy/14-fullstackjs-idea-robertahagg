@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import cityNewYork from "../../Img/cityNewYork.jpg";
-import ListView from "../../Containers/ListView";
 
 const ListView = () => {
   return (

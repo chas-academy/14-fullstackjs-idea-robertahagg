@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+import { TodosList } from "./Containers";
+
 import {
   AddToDo,
   AdminDashboard,
@@ -39,7 +41,7 @@ class App extends Component {
             <Route path="/logout" component={LogOut} />
             <Route path="/addtodo" component={AddToDo} />
             {/* <Route path="/listview/todo/:id" component={Not done yet!} /> */}
-            <Route path="/listview" component={ListView} />
+            <Route path="/list" component={TodosList} />
             <Route path="/progress" component={Progress} />
             <Route path="/search" component={Search} />
             <Route path="/admin/login" component={AdminLogin} />
