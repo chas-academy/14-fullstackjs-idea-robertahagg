@@ -27,19 +27,9 @@ class TodosList extends React.Component {
   }
 
   render() {
-    let todos = this.state.todos;
+    let leTodos = this.state.todos;
 
-    return (
-      /*  <ListView/> */
-
-      <div>
-        <ul>
-          {todos.map(todo => (
-            <li key={todo._id}>{todo.title}</li>
-          ))}
-        </ul>
-      </div>
-    );
+    return <ListView todosInput={leTodos} />;
   }
 }
 
