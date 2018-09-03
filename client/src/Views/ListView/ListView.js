@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import cityNewYork from "../../Img/cityNewYork.jpg";
 
-const ListView = () => {
+const ListView = props => {
+  let todoArray = props.todosInput;
+
   return (
     <div>
       <img className="BackGroundImg" src={cityNewYork} alt="handlyHeader" />
@@ -15,6 +17,12 @@ const ListView = () => {
       <Link to="/search">
         <button>Search</button>
       </Link>
+
+      <ul>
+        {todoArray.map(todo => (
+          <li key={todo._id}>{todo.title}</li>
+        ))}
+      </ul>
     </div>
   );
 };
