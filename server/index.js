@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 var bodyParser = require("body-parser");
+var jwt = require("jsonwebtoken");
+var authentication = require("../server/authentication");
+var TokenVerify = require("../server/middleware/TokenVerify");
 //var request = require("request");
 
 //var router = express.Router();
@@ -9,7 +12,9 @@ const path = require("path");
 // For deploying, so client code is served by our backend server.
 //app.use(express.static(path.join(__dirname, 'client/build')));
 
-function getTodos(res) {
+function getTodos(req, res) {
+  console.log("getTodos user id:" + req.userId);
+
   var MongoClient = require("mongodb").MongoClient;
 
   MongoClient.connect(
@@ -55,44 +60,22 @@ function addTodo(req, res) {
   );
 }
 
-function addNewUser(req, res) {
-  var MongoClient = require("mongodb").MongoClient;
-
-  MongoClient.connect(
-    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
-    function(err, client) {
-      if (err) throw err;
-
-      var db = client.db("handly");
-
-      console.log(req.body);
-
-      const newUser = req.body;
-
-      db.collection("users").save(newUser, function(err, result) {
-        if (err) throw err;
-
-        console.log(result);
-        res.send(result);
-      });
-    }
-  );
-}
-
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.get("/todos", (req, res) => getTodos(res));
+app.get("/todos", TokenVerify, (req, res) => getTodos(req, res));
 app.post("/todos", (req, res) => addTodo(req, res));
 app.get("/todos/:id", (req, res) => res.send("Hello World!"));
 app.put("/todos/:id", (req, res) => res.send("Hello World!"));
 app.delete("/todos/:id", (req, res) => res.send("Hello World!"));
 
 app.get("/users", (req, res) => res.send("Hello World!"));
-app.post("/users", (req, res) => addNewUser(req, res));
-app.get("/users/:id", (req, res) => res.send("Hello World!"));
-app.put("/users/:id", (req, res) => res.send("Hello World!"));
+app.post("/users", (req, res) => authentication.addNewUser(req, res));
+app.get("/users/:id", (req, res) => res.send("Hello World!")); // get profile
+app.put("/users/:id", (req, res) => res.send("Hello World!")); // write profile
 app.delete("/users/:id", (req, res) => res.send("Hello World!"));
+
+app.post("/me/token", (req, res) => authentication.userLogin(req, res));
 
 //app.use(express.static(path.join(__dirname, '../client/build')));
 

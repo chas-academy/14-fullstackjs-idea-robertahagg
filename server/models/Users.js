@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var bcrypt = require("bcrypt");
 
 var UserSchema = new mongoose.Schema({
   username: { type: String, maxlength: [50, "Sorry your username is to long"] },
