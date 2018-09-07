@@ -1,14 +1,15 @@
-import React from 'react';
-import { SearchForm } from '../../Containers';
-import search from '../../Img/search.jpg';
-import './style.css';
+import React from "react";
+import { SearchForm } from "../../containers";
+import imgsearch from "../../Img/imgsearch.jpg";
+import "./style.css";
 
 const Search = () => {
-    return <div>
-    <img className="BackGroundImg" src={search} alt="searchHeaderImg"/>
-    <SearchForm />
+  return (
+    <div>
+      <img className="BackGroundImg" src={imgsearch} alt="searchHeaderImg" />
+      <SearchForm />
     </div>
-}
-
+  );
+};
 
 export default Search;
