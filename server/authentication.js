@@ -67,6 +67,16 @@ function userLogin(req, res) {
   );
 }
 
+function comparePassword(req, res) {
+  var isValidPassword = bcrypt.compareSync(req.body.password, user.password);
+
+  if (!isValidPassword)
+    return res.status(401).send({
+      authenticated: false,
+      token: null
+    });
+}
+
 function createTokenForUser(userId) {
   return jwt.sign({ id: userId }, config.secret, {
     expiresIn: 86400 // valid for 24 hours
@@ -96,5 +106,6 @@ function verifyToken(req, res) {
 module.exports = {
   addNewUser: addNewUser,
   userLogin: userLogin,
-  verifyToken: verifyToken
+  verifyToken: verifyToken,
+  comparePassword: comparePassword
 };
