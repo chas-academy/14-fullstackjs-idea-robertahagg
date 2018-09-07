@@ -1,5 +1,5 @@
 import React from "react";
-import { ListView } from "../../Views";
+import { ListView } from "../../views/";
 
 class TodosList extends React.Component {
   constructor() {
