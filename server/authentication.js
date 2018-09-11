@@ -14,9 +14,16 @@ function addNewUser(req, res) {
 
       console.log(req.body);
 
-      const newUser = req.body;
+      const userFromRequest = req.body;
+      const passwordHash = bcrypt.hashSync(userFromRequest.password, 10);
 
-      db.collection("users").save(newUser, function(err, result) {
+      const newUserForDb = {
+        email: userFromRequest.email,
+        username: userFromRequest.username,
+        passwordHash: passwordHash
+      };
+
+      db.collection("users").save(newUserForDb, function(err, result) {
         if (err) throw err;
 
         console.log(result);
@@ -49,7 +56,7 @@ function userLogin(req, res) {
       db.collection("users").findOne(mongoQuery, function(err, userFromDb) {
         if (err) throw err;
 
-        if (!verifyPassword(req, res, userFromDb.password)) {
+        if (!verifyPassword(req, res, userFromDb.passwordHash)) {
           return;
         }
 
@@ -57,7 +64,7 @@ function userLogin(req, res) {
         const token = createTokenForUser(userFromDb._id);
 
         res
-          .cookie("token", token, { maxAge: 86400 })
+          .cookie("token", token, { maxAge: 86400000 })
           .status(200)
           .send();
       });
@@ -70,13 +77,14 @@ function userLogin(req, res) {
   );
 }
 
-function verifyPassword(req, res, password) {
-  var isValidPassword = req.body.password == password;
-
-  //   var isValidPassword = bcrypt.compareSync(req.body.password, password);
+function verifyPassword(req, res, passwordHash) {
+  const isValidPassword = bcrypt.compareSync(req.body.password, passwordHash);
 
   if (!isValidPassword) {
-    res.status(401).send("Incorrect password.");
+    res
+      .clearCookie("token")
+      .status(401)
+      .send("Incorrect password.");
   }
 
   return isValidPassword;
@@ -88,28 +96,7 @@ function createTokenForUser(userId) {
   });
 }
 
-function verifyToken(req, res) {
-  db.collection("users").findById(req.userId, { password: 0 }, function(
-    error,
-    user
-  ) {
-    if (error) {
-      res.status(500).send("An error occured while trying to find the user.");
-    }
-
-    if (!user) {
-      res.status(404).status("User not found");
-    }
-
-    res.status(200).send({
-      authenticated: true,
-      user: user
-    });
-  });
-}
-
 module.exports = {
   addNewUser: addNewUser,
-  userLogin: userLogin,
-  verifyToken: verifyToken
+  userLogin: userLogin
 };
