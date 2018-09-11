@@ -1,5 +1,6 @@
 var jwt = require("jsonwebtoken");
 var config = require("../server/config");
+var bcrypt = require("bcrypt");
 
 function addNewUser(req, res) {
   var MongoClient = require("mongodb").MongoClient;

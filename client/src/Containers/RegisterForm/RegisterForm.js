@@ -66,7 +66,6 @@ class RegisterForm extends React.Component {
   }
 
   render() {
-    const { username, password, submitted } = this.state;
     return (
       <div>
         <form className="LoginForm">

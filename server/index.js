@@ -4,6 +4,8 @@ var bodyParser = require("body-parser");
 var jwt = require("jsonwebtoken");
 var authentication = require("../server/authentication");
 var TokenVerify = require("../server/middleware/TokenVerify");
+var cookieParser = require("cookie-parser");
+app.use(cookieParser());
 //var request = require("request");
 
 //var router = express.Router();

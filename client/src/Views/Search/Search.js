@@ -3,7 +3,8 @@ import { SearchForm } from "../../containers";
 import imgsearch from "../../Img/imgsearch.jpg";
 import "./style.css";
 
-const Search = () => {
+const Search = props => {
+  let todoArray = props.todosInput;
   return (
     <div>
       <img className="BackGroundImg" src={imgsearch} alt="searchHeaderImg" />

@@ -18,6 +18,9 @@ class TodosList extends React.Component {
       }
     })
       .then(response => {
+        if (!response.ok) {
+          throw response.status;
+        }
         return response.json();
       })
 
