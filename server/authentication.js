@@ -49,6 +49,10 @@ function userLogin(req, res) {
       db.collection("users").findOne(mongoQuery, function(err, userFromDb) {
         if (err) throw err;
 
+        if (!verifyPassword(req, res, userFromDb.password)) {
+          return;
+        }
+
         console.log(userFromDb);
         const token = createTokenForUser(userFromDb._id);
 
@@ -58,24 +62,24 @@ function userLogin(req, res) {
           .send();
       });
 
-      return;
-
-      if (!user)
-        return res
-          .status(404)
-          .send("No registered user found with that email.");
+      //   if (!user)
+      //     return res
+      //       .status(404)
+      //       .send("No registered user found with that email.");
     }
   );
 }
 
-function comparePassword(req, res) {
-  var isValidPassword = bcrypt.compareSync(req.body.password, user.password);
+function verifyPassword(req, res, password) {
+  var isValidPassword = req.body.password == password;
 
-  if (!isValidPassword)
-    return res.status(401).send({
-      authenticated: false,
-      token: null
-    });
+  //   var isValidPassword = bcrypt.compareSync(req.body.password, password);
+
+  if (!isValidPassword) {
+    res.status(401).send("Incorrect password.");
+  }
+
+  return isValidPassword;
 }
 
 function createTokenForUser(userId) {
@@ -107,6 +111,5 @@ function verifyToken(req, res) {
 module.exports = {
   addNewUser: addNewUser,
   userLogin: userLogin,
-  verifyToken: verifyToken,
-  comparePassword: comparePassword
+  verifyToken: verifyToken
 };
