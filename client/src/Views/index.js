@@ -8,3 +8,6 @@ export { default as Progress } from "./progress/progress";
 export { default as Register } from "./register/register";
 export { default as Search } from "./search/search";
 export { default as NotFoundPage } from "./notFoundPage/notFoundPage";
+export {
+  default as TodoSuggestionList
+} from "./todoSuggestionList/todoSuggestionList";
