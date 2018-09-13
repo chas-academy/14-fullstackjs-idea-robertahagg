@@ -1,14 +1,15 @@
-.BackGroundImg{
-    height: 600px;
-    width: 100%;
+.BackGroundImg {
+  height: 600px;
+  width: 100%;
+}
+.UserIcon {
+  float: left;
+  font-size: 20px;
 }
 
-
-
-
 @media only screen and (max-width: 600px) {
-    .BackGroundImg {
-        height: 300px;
-        width: 100%;
-    }
+  .BackGroundImg {
+    height: 300px;
+    width: 100%;
+  }
 }

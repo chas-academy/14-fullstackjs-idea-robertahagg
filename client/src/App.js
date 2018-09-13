@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { TodosList } from "./containers/";
+import { AdminDashboardUsers } from "./containers/";
 
 import {
   AddToDo,
@@ -26,7 +27,8 @@ import {
   faBell,
   faHome,
   faCheckCircle,
-  faSearch
+  faSearch,
+  faEdit
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -36,7 +38,8 @@ library.add(
   faBell,
   faHome,
   faCheckCircle,
-  faSearch
+  faSearch,
+  faEdit
 );
 
 class App extends Component {
@@ -55,7 +58,7 @@ class App extends Component {
             <Route path="/progress" component={Progress} />
             <Route path="/search" component={Search} />
             <Route path="/admin/login" component={AdminLogin} />
-            <Route path="/admin/dashboard" component={AdminDashboard} />
+            <Route path="/admin/dashboard" component={AdminDashboardUsers} />
             <Route component={NotFoundPage} />
           </Switch>
         </BrowserRouter>
