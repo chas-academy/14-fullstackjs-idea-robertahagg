@@ -1,13 +1,13 @@
 import React from "react";
 import { SearchForm } from "../../containers";
-import imgsearch from "../../Img/imgsearch.jpg";
+import HandlySearch from "../../Img/HandlySearch.jpg";
 import "./style.css";
 
 const Search = props => {
-  let todoArray = props.todosInput;
+  let resultsArray = props.todosInput;
   return (
     <div>
-      <img className="BackGroundImg" src={imgsearch} alt="searchHeaderImg" />
+      <img className="BackGroundImg" src={HandlySearch} alt="searchHeaderImg" />
       <SearchForm />
     </div>
   );

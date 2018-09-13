@@ -1,0 +1,17 @@
+.TodoListArray,
+li {
+  font-size: 20px;
+  font-family: "Open Sans Condensed", sans-serif;
+  padding: 10px;
+}
+
+.TodoListArray li {
+  margin-bottom: 6px;
+  background: rgba(72, 62, 139, 0.4);
+}
+
+.BtnDone {
+  float: right;
+  background: rgba(72, 62, 139, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}

@@ -24,10 +24,20 @@ import {
   faEnvelope,
   faUnlock,
   faBell,
-  faHome
+  faHome,
+  faCheckCircle,
+  faSearch
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faUser, faEnvelope, faUnlock, faBell, faHome);
+library.add(
+  faUser,
+  faEnvelope,
+  faUnlock,
+  faBell,
+  faHome,
+  faCheckCircle,
+  faSearch
+);
 
 class App extends Component {
   render() {

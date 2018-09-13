@@ -1,11 +1,15 @@
 import React from "react";
 import "./style.css";
-import admin from "../../Img/admin.jpg";
+import admindashboard from "../../Img/admindashboard.jpg";
 
 const AdminDashboard = () => {
   return (
     <div>
-      <img className="BackGroundImg" src={admin} alt="adminHeaderImg" />
+      <img
+        className="BackGroundImg"
+        src={admindashboard}
+        alt="adminHeaderImg"
+      />
     </div>
   );
 };
