@@ -10,7 +10,6 @@ const AdminDashboard = props => {
     return <div />;
   }
 
-  debugger;
   return (
     <div>
       <img
@@ -18,7 +17,8 @@ const AdminDashboard = props => {
         src={admindashboard}
         alt="adminHeaderImg"
       />
-      <ul className="TodoListArray">
+      <p> List of active users </p>
+      <ul className="UserListArray">
         {userArray.map(user => (
           <li key={user._id}>
             <FontAwesomeIcon className="UserIcon" icon="edit" />
