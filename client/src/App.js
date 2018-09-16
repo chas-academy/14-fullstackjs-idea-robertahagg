@@ -3,7 +3,7 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { TodosList } from "./Containers/";
-import { AdminDashboardUsers } from "./containers/";
+import { AdminDashboardUsers } from "./Containers/";
 
 import {
   AddToDo,

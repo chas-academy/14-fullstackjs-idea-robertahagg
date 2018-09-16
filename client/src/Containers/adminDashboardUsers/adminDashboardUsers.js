@@ -1,5 +1,5 @@
 import React from "react";
-import { AdminDashboard } from "../../views";
+import { AdminDashboard } from "../../Views";
 
 class AdminDashboardUsers extends React.Component {
   constructor() {
