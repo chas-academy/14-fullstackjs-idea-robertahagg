@@ -1,12 +1,12 @@
-var jwt = require("jsonwebtoken");
-var config = require("../config");
+const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 function tokenVerify(req, res, next) {
   // var token = req.headers["x-access-token"];
 
   console.log(req);
 
-  var token = req.cookies.token;
+  const token = req.cookies.token;
 
   if (!token) {
     return res.status(401).send({
