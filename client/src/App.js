@@ -8,6 +8,7 @@ import {
   AdminLogin,
   ListView,
   Login,
+  LogOut,
   Progress,
   Register,
   Search,
@@ -15,17 +16,25 @@ import {
 
 } from "./Components";
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser, faEnvelope, faUnlock, faBell, faHome } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faUser,faEnvelope, faUnlock, faBell, faHome)
+
+
+
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1> HANDLY </h1> 
         
         <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/logout" component={LogOut} />
           <Route path="/addtodo" component={AddToDo} />
           {/* <Route path="/listview/todo/:id" component={Not done yet!} /> */}
           <Route path="/listview" component={ListView} />

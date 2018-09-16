@@ -1,8 +1,11 @@
 import React from 'react';
 import { SearchForm } from '../../Containers';
+import search from '../../Img/search.jpg';
+import './style.css';
 
 const Search = () => {
-    return <div><p> FIND OUT WHAT YOU ARE LOOKING FOR </p>
+    return <div>
+    <img className="BackGroundImg" src={search} alt="searchHeaderImg"/>
     <SearchForm />
     </div>
 }

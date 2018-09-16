@@ -1,20 +1,21 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class RegisterForm extends React.Component {
     render() {
       return <div>
           
-      
-<label for="username"><b>Username</b></label>
-<input type="text" placeholder="" name="username" required/>
+          <form className="LoginForm">
+<label for="username"><b><FontAwesomeIcon icon="user" /></b></label>
+<input type="text" placeholder="" name="username" required/><br />
 
-<label for="email"><b>Email</b></label>
-<input type="text" placeholder="" name="email" required/>
+<label for="email"><b><FontAwesomeIcon icon="envelope" /></b></label>
+<input type="text" placeholder="" name="email" required/><br />
 
-<label for="psw"><b>Password</b></label>
+<label for="psw"><b><FontAwesomeIcon icon="unlock" /></b></label>
 <input type="password" placeholder="" name="password" required/>
-
-<button type="submit">CREATE ACCOUNT</button>
+</form>
+<button type="submit">SIGN UP</button>
   </div>
     }
   }
