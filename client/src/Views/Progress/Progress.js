@@ -1,11 +1,11 @@
 import React from "react";
-import process from "../../Img/process.jpg";
+import yourprocess from "../../Img/yourprocess.jpg";
 import "./style.css";
 
 const Progress = () => {
   return (
     <div>
-      <img className="BackGroundImg" src={process} alt="processHeaderImg" />
+      <img className="BackGroundImg" src={yourprocess} alt="processHeaderImg" />
     </div>
   );
 };

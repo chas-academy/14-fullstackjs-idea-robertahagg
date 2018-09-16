@@ -1,14 +1,28 @@
-.BackGroundImg{
-    height: 600px;
-    width: 100%;
+.BackGroundImg {
+  height: 600px;
+  width: 100%;
+}
+.UserListArray,
+li {
+  font-family: "Open Sans Condensed", sans-serif;
+  padding: 10px;
+  list-style-type: none;
+}
+.UserListArray li {
+  margin-bottom: 6px;
+  background: rgba(72, 62, 139, 0.4);
+  list-style-type: none;
+}
+.UserIcon {
+  float: left;
+  font-size: 15px;
+  background: rgba(72, 62, 139, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.25);
 }
 
-
-
-
 @media only screen and (max-width: 600px) {
-    .BackGroundImg {
-        height: 300px;
-        width: 100%;
-    }
+  .BackGroundImg {
+    height: 300px;
+    width: 100%;
+  }
 }
