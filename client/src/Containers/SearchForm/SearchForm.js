@@ -12,13 +12,22 @@ class SearchForm extends React.Component {
   };
 
   getTodoDataInfo = () => {
-    axios
-      .get(`${API_URL}?api_key=${API_KEY}&prefix=${this.state.query}&limit=7`)
-      .then(({ data }) => {
-        this.setState({
-          results: data.data // todos returns an object named data,
-          // as does axios. So... data.data
-        });
+    fetch("/todos", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw response.status;
+        }
+
+        return response.json();
+      })
+
+      .then(resultsArray => {
+        this.setState({ results: resultsArray });
       });
   };
 
