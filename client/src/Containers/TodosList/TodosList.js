@@ -1,5 +1,5 @@
 import React from "react";
-import { ListView } from "../../Views";
+import { ListView } from "../../views/";
 
 class TodosList extends React.Component {
   constructor() {
@@ -18,6 +18,9 @@ class TodosList extends React.Component {
       }
     })
       .then(response => {
+        if (!response.ok) {
+          throw response.status;
+        }
         return response.json();
       })
 
@@ -27,19 +30,9 @@ class TodosList extends React.Component {
   }
 
   render() {
-    let todos = this.state.todos;
+    let leTodos = this.state.todos;
 
-    return (
-      /*  <ListView/> */
-
-      <div>
-        <ul>
-          {todos.map(todo => (
-            <li key={todo._id}>{todo.title}</li>
-          ))}
-        </ul>
-      </div>
-    );
+    return <ListView todosInput={leTodos} />;
   }
 }
 

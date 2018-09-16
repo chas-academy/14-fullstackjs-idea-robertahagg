@@ -2,20 +2,20 @@ import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import { TodosList } from "./Containers";
+import { TodosList } from "./containers/";
 
 import {
   AddToDo,
   AdminDashboard,
   AdminLogin,
-  ListView,
   Login,
   LogOut,
   Progress,
   Register,
+  ListView,
   Search,
   NotFoundPage
-} from "./Views";
+} from "./views";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
