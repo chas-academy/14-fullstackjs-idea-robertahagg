@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import { TodosList } from "./containers/";
+import { TodosList } from "./Containers/";
 
 import {
   AddToDo,
@@ -15,7 +15,7 @@ import {
   ListView,
   Search,
   NotFoundPage
-} from "./views";
+} from "./Views";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

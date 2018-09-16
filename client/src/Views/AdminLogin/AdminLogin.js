@@ -1,5 +1,5 @@
 import React from "react";
-import { LogInForm } from "../../containers";
+import { LogInForm } from "../../Containers";
 import loginImg from "../../Img/loginImg.jpg";
 
 const AdminLogin = () => {

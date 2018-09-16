@@ -1,13 +1,13 @@
-export { default as AddToDo } from "./addToDo/addToDo";
-export { default as AdminDashboard } from "./adminDashboard/adminDashboard";
-export { default as AdminLogin } from "./adminLogin/adminLogin";
-export { default as ListView } from "./listView/listView";
-export { default as Login } from "./login/login";
-export { default as LogOut } from "./logOut/logOut";
-export { default as Progress } from "./progress/progress";
-export { default as Register } from "./register/register";
-export { default as Search } from "./search/search";
-export { default as NotFoundPage } from "./notFoundPage/notFoundPage";
+export { default as AddToDo } from "./AddToDo/AddToDo";
+export { default as AdminDashboard } from "./AdminDashboard/AdminDashboard";
+export { default as AdminLogin } from "./AdminLogin/AdminLogin";
+export { default as ListView } from "./ListView/ListView";
+export { default as Login } from "./Login/Login";
+export { default as LogOut } from "./LogOut/LogOut";
+export { default as Progress } from "./Progress/Progress";
+export { default as Register } from "./Register/Register";
+export { default as Search } from "./Search/Search";
+export { default as NotFoundPage } from "./NotFoundPage/NotFoundPage";
 export {
   default as TodoSuggestionList
 } from "./todoSuggestionList/todoSuggestionList";

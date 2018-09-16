@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { TodoSuggestionList } from "../../views";
+import { TodoSuggestionList } from "../../Views";
 
 const { API_KEY } = process.env;
 const API_URL = "/todos";
