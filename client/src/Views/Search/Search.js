@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchForm } from "../../containers";
+import { SearchForm } from "../../Containers";
 import imgsearch from "../../Img/imgsearch.jpg";
 import "./style.css";
 

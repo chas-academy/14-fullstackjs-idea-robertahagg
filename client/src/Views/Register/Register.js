@@ -1,5 +1,5 @@
 import React from "react";
-import { RegisterForm } from "../../containers";
+import { RegisterForm } from "../../Containers";
 import handlymain from "../../Img/handlymain.jpg";
 import "./style.css";
 
