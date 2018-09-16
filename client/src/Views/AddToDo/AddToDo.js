@@ -1,12 +1,12 @@
 import React from "react";
 import { AddToDoForm } from "../../containers";
-import city from "../../Img/city.jpg";
+import addtodo from "../../Img/addtodo.jpg";
 import "./style.css";
 
 const AddToDo = () => {
   return (
     <div>
-      <img className="BackGroundImg" src={city} alt="cityOfNewYorkHeaderImg" />
+      <img className="BackGroundImg" src={addtodo} alt="addtodoImg" />
       <AddToDoForm />
     </div>
   );

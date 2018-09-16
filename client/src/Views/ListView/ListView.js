@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import cityNewYork from "../../Img/cityNewYork.jpg";
+import listview from "../../Img/listview.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./style.css";
 
 const ListView = props => {
   let todoArray = props.todosInput;
 
   return (
     <div>
-      <img className="BackGroundImg" src={cityNewYork} alt="handlyHeader" />
+      <img className="BackGroundImg" src={listview} alt="handlyHeader" />
       <Link to="/addtodo">
         <button>Add a new to do</button>
       </Link>
@@ -15,12 +17,19 @@ const ListView = props => {
         <button>View progress</button>
       </Link>
       <Link to="/search">
-        <button>Search</button>
+        <button>
+          <FontAwesomeIcon icon="search" /> Search
+        </button>
       </Link>
 
-      <ul>
+      <ul className="TodoListArray">
         {todoArray.map(todo => (
-          <li key={todo._id}>{todo.title}</li>
+          <li key={todo._id}>
+            {todo.title}{" "}
+            <b className="BtnDone">
+              <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp;
+            </b>
+          </li>
         ))}
       </ul>
     </div>

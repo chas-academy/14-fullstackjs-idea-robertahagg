@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
-var bodyParser = require("body-parser");
-var jwt = require("jsonwebtoken");
-var authentication = require("../server/authentication");
-var TokenVerify = require("../server/middleware/TokenVerify");
-var cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
+const authentication = require("../server/authentication");
+const TokenVerify = require("../server/middleware/TokenVerify");
+const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 //var request = require("request");
 
@@ -17,14 +17,14 @@ const path = require("path");
 function getTodos(req, res) {
   console.log("getTodos user id:" + req.userId);
 
-  var MongoClient = require("mongodb").MongoClient;
+  const MongoClient = require("mongodb").MongoClient;
 
   MongoClient.connect(
     "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
     function(err, client) {
       if (err) throw err;
 
-      var db = client.db("handly");
+      const db = client.db("handly");
 
       db.collection("todos")
         .find()
@@ -39,14 +39,14 @@ function getTodos(req, res) {
 }
 
 function addTodo(req, res) {
-  var MongoClient = require("mongodb").MongoClient;
+  const MongoClient = require("mongodb").MongoClient;
 
   MongoClient.connect(
     "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
     function(err, client) {
       if (err) throw err;
 
-      var db = client.db("handly");
+      const db = client.db("handly");
 
       console.log(req.body);
 
