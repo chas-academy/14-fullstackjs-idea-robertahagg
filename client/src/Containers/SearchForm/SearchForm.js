@@ -11,14 +11,23 @@ class SearchForm extends React.Component {
     results: []
   };
 
-  getTodoDataInfo = () => {
-    axios
-      .get(`${API_URL}?api_key=${API_KEY}&prefix=${this.state.query}&limit=7`)
-      .then(({ data }) => {
-        this.setState({
-          results: data.data // todos returns an object named data,
-          // as does axios. So... data.data
-        });
+  getTodoDataInfo = searchString => {
+    fetch("/todos?search=" + searchString, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw response.status;
+        }
+
+        return response.json();
+      })
+
+      .then(resultsArray => {
+        this.setState({ results: resultsArray });
       });
   };
 
@@ -29,9 +38,7 @@ class SearchForm extends React.Component {
       },
       () => {
         if (this.state.query && this.state.query.length > 1) {
-          if (this.state.query.length % 2 === 0) {
-            this.getTodoDataInfo();
-          }
+          this.getTodoDataInfo(this.state.query);
         }
       }
     );

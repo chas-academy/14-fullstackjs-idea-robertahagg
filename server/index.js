@@ -25,15 +25,25 @@ function getTodos(req, res) {
       if (err) throw err;
 
       const db = client.db("handly");
+      const collection = db.collection("todos");
 
-      db.collection("todos")
-        .find()
-        .toArray(function(err, result) {
-          if (err) throw err;
+      const textSearch = req.query.search;
 
-          console.log(result);
-          res.send(result);
+      let cursor;
+      if (textSearch) {
+        cursor = collection.find({
+          $text: { $search: textSearch }
         });
+      } else {
+        cursor = collection.find();
+      }
+
+      cursor.toArray(function(err, result) {
+        if (err) throw err;
+
+        console.log(result);
+        res.send(result);
+      });
     }
   );
 }

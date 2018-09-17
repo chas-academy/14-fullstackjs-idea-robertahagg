@@ -1,0 +1,20 @@
+.TodoSearchListArray,
+li {
+  font-family: "Open Sans Condensed", sans-serif;
+}
+
+.TodoSearchListArray li {
+  margin-bottom: 6px;
+  background: rgba(72, 62, 139, 0.4);
+}
+.TodoSearchListArray,
+ul {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.BtnDone {
+  float: right;
+  background: rgba(72, 62, 139, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
