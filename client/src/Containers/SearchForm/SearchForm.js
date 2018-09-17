@@ -11,8 +11,8 @@ class SearchForm extends React.Component {
     results: []
   };
 
-  getTodoDataInfo = () => {
-    fetch("/todos", {
+  getTodoDataInfo = searchString => {
+    fetch("/todos?search=" + searchString, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -38,9 +38,7 @@ class SearchForm extends React.Component {
       },
       () => {
         if (this.state.query && this.state.query.length > 1) {
-          if (this.state.query.length % 2 === 0) {
-            this.getTodoDataInfo();
-          }
+          this.getTodoDataInfo(this.state.query);
         }
       }
     );
