@@ -3,6 +3,8 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { TodosList } from "./Containers/";
+import { AdminDashboardUsers } from "./Containers/";
+import { UserDetail } from "./Containers";
 
 import {
   AddToDo,
@@ -14,7 +16,8 @@ import {
   Register,
   ListView,
   Search,
-  NotFoundPage
+  NotFoundPage,
+  UserDetailView
 } from "./Views";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -57,7 +60,8 @@ class App extends Component {
             <Route path="/progress" component={Progress} />
             <Route path="/search" component={Search} />
             <Route path="/admin/login" component={AdminLogin} />
-            <Route path="/admin/dashboard" component={AdminDashboard} />
+            <Route path="/admin/dashboard" component={AdminDashboardUsers} />
+            <Route path="/admin/users/:id" component={UserDetailView} />
             <Route component={NotFoundPage} />
           </Switch>
         </BrowserRouter>

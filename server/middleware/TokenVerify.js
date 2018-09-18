@@ -4,8 +4,6 @@ const config = require("../config");
 function tokenVerify(req, res, next) {
   // var token = req.headers["x-access-token"];
 
-  console.log(req);
-
   const token = req.cookies.token;
 
   if (!token) {

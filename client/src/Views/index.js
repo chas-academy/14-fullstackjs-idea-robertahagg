@@ -1,6 +1,7 @@
 export { default as AddToDo } from "./AddToDo/AddToDo";
 export { default as AdminDashboard } from "./AdminDashboard/AdminDashboard";
 export { default as AdminLogin } from "./AdminLogin/AdminLogin";
+export { default as UserDetailView } from "./UserDetailView/UserDetailView";
 export { default as ListView } from "./ListView/ListView";
 export { default as Login } from "./Login/Login";
 export { default as LogOut } from "./LogOut/LogOut";

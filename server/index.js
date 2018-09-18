@@ -14,6 +14,61 @@ const path = require("path");
 // For deploying, so client code is served by our backend server.
 //app.use(express.static(path.join(__dirname, 'client/build')));
 
+function getUsers(req, res) {
+  console.log("getUsers user id:" + req.userId);
+  const MongoClient = require("mongodb").MongoClient;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      db.collection("users")
+        .find()
+        .toArray(function(err, result) {
+          if (err) throw err;
+
+          console.log(result);
+          res.send(result);
+        });
+    }
+  );
+}
+
+function getUserDetails(req, res) {
+  const MongoClient = require("mongodb").MongoClient;
+  const ObjectId = require("mongodb").ObjectId;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      userId = req.params.id;
+
+      db.collection("users").findOne({ _id: ObjectId(userId) }, function(
+        err,
+        result
+      ) {
+        if (err) throw err;
+
+        console.log(result);
+
+        const userToReturn = {
+          username: result.username,
+          email: result.email
+        };
+
+        res.send(userToReturn);
+      });
+    }
+  );
+}
+
 function getTodos(req, res) {
   console.log("getTodos user id:" + req.userId);
 
@@ -81,9 +136,9 @@ app.get("/todos/:id", (req, res) => res.send("Hello World!"));
 app.put("/todos/:id", (req, res) => res.send("Hello World!"));
 app.delete("/todos/:id", (req, res) => res.send("Hello World!"));
 
-app.get("/users", (req, res) => res.send("Hello World!"));
+app.get("/users", TokenVerify, (req, res) => getUsers(req, res));
 app.post("/users", (req, res) => authentication.addNewUser(req, res));
-app.get("/users/:id", (req, res) => res.send("Hello World!")); // get profile
+app.get("/users/:id", TokenVerify, (req, res) => getUserDetails(req, res)); // get profile
 app.put("/users/:id", (req, res) => res.send("Hello World!")); // write profile
 app.delete("/users/:id", (req, res) => res.send("Hello World!"));
 
