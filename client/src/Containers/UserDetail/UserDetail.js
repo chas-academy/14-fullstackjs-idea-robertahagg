@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class UserDetail extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       user: {
         username: "",
-        email: "",
-        password: ""
+        email: ""
       },
       submitted: false
     };
@@ -17,18 +17,36 @@ class UserDetail extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    fetch("/users/" + this.props.userId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw response.status;
+        }
+
+        return response.json();
+      })
+
+      .then(user => {
+        this.setState({ user: user });
+      });
+  }
+
   handleChange(event) {
-    const newUser = { ...this.state.user };
+    const updateUser = { ...this.state.user };
 
     if (event.target.name === "username") {
-      newUser.username = event.target.value;
+      updateUser.username = event.target.value;
     } else if (event.target.name === "email") {
-      newUser.email = event.target.value;
-    } else if (event.target.name === "password") {
-      newUser.password = event.target.value;
+      updateUser.email = event.target.value;
     }
 
-    this.setState({ user: newUser });
+    this.setState({ user: updateUser });
   }
 
   handleSubmit(event) {
@@ -36,21 +54,19 @@ class UserDetail extends React.Component {
 
     let username = this.state.user.username;
     let email = this.state.user.email;
-    let password = this.state.user.password;
 
-    if (!username || !email || !password) {
+    if (!username || !email) {
       return;
     }
 
-    fetch("/users", {
-      method: "POST",
+    fetch("/users/", {
+      method: "GET",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
         username: username,
-        email: email,
-        password: password
+        email: email
       })
     })
       .then(function(response) {
@@ -58,7 +74,7 @@ class UserDetail extends React.Component {
           throw response.status;
         }
 
-        this.setState({ username: "", email: "", password: "" });
+        this.setState({ username: "", email: "" });
       })
       .catch(function(error) {
         console.log(error);
@@ -75,7 +91,7 @@ class UserDetail extends React.Component {
             </b>
           </label>
           <input
-            value={this.state.username}
+            value={this.state.user.username}
             onChange={this.handleChange}
             type="text"
             placeholder=""
@@ -90,7 +106,7 @@ class UserDetail extends React.Component {
             </b>
           </label>
           <input
-            value={this.state.email}
+            value={this.state.user.email}
             onChange={this.handleChange}
             type="text"
             placeholder=""
@@ -98,20 +114,6 @@ class UserDetail extends React.Component {
             required
           />
           <br />
-
-          <label for="psw">
-            <b>
-              <FontAwesomeIcon icon="unlock" />
-            </b>
-          </label>
-          <input
-            value={this.state.password}
-            onChange={this.handleChange}
-            type="password"
-            placeholder=""
-            name="password"
-            required
-          />
         </form>
         <button onClick={this.handleSubmit} type="submit">
           UPDATE

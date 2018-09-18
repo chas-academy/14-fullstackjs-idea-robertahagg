@@ -61,7 +61,7 @@ class App extends Component {
             <Route path="/search" component={Search} />
             <Route path="/admin/login" component={AdminLogin} />
             <Route path="/admin/dashboard" component={AdminDashboardUsers} />
-            <Route path="/admin/userdetail/:id" component={UserDetailView} />
+            <Route path="/admin/users/:id" component={UserDetailView} />
             <Route component={NotFoundPage} />
           </Switch>
         </BrowserRouter>

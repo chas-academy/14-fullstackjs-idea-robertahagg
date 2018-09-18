@@ -1,12 +1,12 @@
 import React from "react";
 import { UserDetail } from "../../Containers";
-import admindashboard from "../../Img/admindashboard.jpg";
 
-const UserDetailView = () => {
+const UserDetailView = props => {
+  const id = props.match.params.id;
+
   return (
     <div>
-      <img className="BackGroundImg" src={admindashboard} alt="handlyHeader" />
-      <UserDetail />
+      <UserDetail userId={id} />
     </div>
   );
 };

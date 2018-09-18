@@ -2,6 +2,7 @@ import React from "react";
 import "./style.css";
 import admindashboard from "../../Img/admindashboard.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 const AdminDashboard = props => {
   let userArray = props.userInput;
@@ -21,11 +22,13 @@ const AdminDashboard = props => {
       <ul className="UserListArray">
         {userArray.map(user => (
           <li key={user._id}>
-            <FontAwesomeIcon className="UserIcon" icon="edit" />
-            {user.username}
-            <b className="BtnDone">
-              {/* <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp; */}
-            </b>
+            <Link to={`/admin/users/${user._id}`}>
+              <FontAwesomeIcon className="UserIcon" icon="edit" />
+              {user.username}
+              <b className="BtnDone">
+                {/* <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp; */}
+              </b>
+            </Link>
           </li>
         ))}
       </ul>
