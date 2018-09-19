@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { TodosList } from "./Containers/";
 import { AdminDashboardUsers } from "./Containers/";
 import { UserDetail } from "./Containers";
+import { TodoDetail } from "./Containers";
 
 import {
   AddToDo,
@@ -17,7 +18,8 @@ import {
   ListView,
   Search,
   NotFoundPage,
-  UserDetailView
+  UserDetailView,
+  TodoDetailView
 } from "./Views";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -57,6 +59,7 @@ class App extends Component {
             <Route path="/addtodo" component={AddToDo} />
             {/* <Route path="/listview/todo/:id" component={Not done yet!} /> */}
             <Route path="/list" component={TodosList} />
+            <Route path="/todos/:id" component={TodoDetailView} />
             <Route path="/progress" component={Progress} />
             <Route path="/search" component={Search} />
             <Route path="/admin/login" component={AdminLogin} />
