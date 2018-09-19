@@ -25,10 +25,12 @@ const ListView = props => {
       <ul className="TodoListArray">
         {todoArray.map(todo => (
           <li key={todo._id}>
-            {todo.title}{" "}
-            <b className="BtnDone">
-              <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp;
-            </b>
+            <Link to={`/todos/${todo._id}`}>
+              {todo.title}{" "}
+              <b className="BtnDone">
+                <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp;
+              </b>
+            </Link>
           </li>
         ))}
       </ul>

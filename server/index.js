@@ -103,6 +103,39 @@ function getTodos(req, res) {
   );
 }
 
+function getTodoDetails(req, res) {
+  const MongoClient = require("mongodb").MongoClient;
+  const ObjectId = require("mongodb").ObjectId;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      todoId = req.params.id;
+
+      db.collection("todos").findOne({ _id: ObjectId(todoId) }, function(
+        err,
+        result
+      ) {
+        if (err) throw err;
+
+        console.log(result);
+
+        const todoToReturn = {
+          title: result.title,
+          place: result.place,
+          notes: result.notes
+        };
+
+        res.send(todoToReturn);
+      });
+    }
+  );
+}
+
 function addTodo(req, res) {
   const MongoClient = require("mongodb").MongoClient;
 
@@ -132,7 +165,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 app.get("/todos", TokenVerify, (req, res) => getTodos(req, res));
 app.post("/todos", (req, res) => addTodo(req, res));
-app.get("/todos/:id", (req, res) => res.send("Hello World!"));
+app.get("/todos/:id", TokenVerify, (req, res) => getTodoDetails(req, res));
 app.put("/todos/:id", (req, res) => res.send("Hello World!"));
 app.delete("/todos/:id", (req, res) => res.send("Hello World!"));
 
