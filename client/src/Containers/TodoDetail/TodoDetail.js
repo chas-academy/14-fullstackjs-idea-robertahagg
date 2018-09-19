@@ -18,18 +18,38 @@ class TodoDetail extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    fetch("/todos/" + this.props.todoId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw response.status;
+        }
+
+        return response.json();
+      })
+
+      .then(todo => {
+        this.setState({ newTodo: todo });
+      });
+  }
+
   handleChange(event) {
-    const addNewTodo = { ...this.state.newTodo };
+    const updateTodo = { ...this.state.newTodo };
 
     if (event.target.name === "title") {
-      addNewTodo.title = event.target.value;
+      updateTodo.title = event.target.value;
     } else if (event.target.name === "place") {
-      addNewTodo.place = event.target.value;
+      updateTodo.place = event.target.value;
     } else if (event.target.name === "notes") {
-      addNewTodo.notes = event.target.value;
+      updateTodo.notes = event.target.value;
     }
 
-    this.setState({ newTodo: addNewTodo });
+    this.setState({ newTodo: updateTodo });
   }
 
   handleSubmit(e) {
@@ -45,12 +65,16 @@ class TodoDetail extends React.Component {
 
     //this.props.onSubmit({ title: title, place: place, notes: notes });
 
-    fetch("/todos", {
-      method: "POST",
+    fetch("/todos/", {
+      method: "GET",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ title: title, place: place, notes: notes })
+      body: JSON.stringify({
+        title: title,
+        place: place,
+        notes: notes
+      })
     })
       .then(function(response) {
         if (!response.ok) {
@@ -75,7 +99,7 @@ class TodoDetail extends React.Component {
           <input
             type="text"
             placeholder=""
-            value={this.state.title}
+            value={this.state.newTodo.title}
             onChange={this.handleChange}
             name="title"
             required
@@ -89,7 +113,7 @@ class TodoDetail extends React.Component {
           <input
             type="text"
             placeholder=""
-            value={this.state.place}
+            value={this.state.newTodo.place}
             onChange={this.handleChange}
             name="place"
             required
@@ -100,7 +124,7 @@ class TodoDetail extends React.Component {
             placeholder="Add notes here.."
             rows="8"
             cols="50"
-            value={this.state.notes}
+            value={this.state.newTodo.notes}
             onChange={this.handleChange}
             name="notes"
             form="notesform"
@@ -108,9 +132,11 @@ class TodoDetail extends React.Component {
         </form>
 
         <button onClick={this.handleSubmit} type="submit">
-          ADD
+          UPDATE
         </button>
-        <button type="cancel">CANCEL</button>
+        <button onClick={this.handleSubmit} type="submit">
+          DELETE
+        </button>
       </div>
     );
   }
