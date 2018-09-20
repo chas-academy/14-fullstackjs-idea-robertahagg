@@ -48,6 +48,8 @@ class LogInForm extends React.Component {
       //dispatch(login(user));
     }
 
+    const _this = this;
+
     fetch("/me/token", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -58,6 +60,7 @@ class LogInForm extends React.Component {
           throw response.status;
         }
 
+        _this.routeChange();
         return response;
       })
       .catch(function(error) {
@@ -100,11 +103,7 @@ class LogInForm extends React.Component {
             required
           />
         </form>
-        <button
-          onClick={this.handleSubmit}
-          onClick={this.routeChange}
-          type="submit"
-        >
+        <button onClick={this.handleSubmit} type="submit">
           SIGN IN
         </button>
         <a className="RegisterAccountLink">register account</a>
