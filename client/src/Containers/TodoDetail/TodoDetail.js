@@ -1,5 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Authentication from "../../Authentication";
+import { withRouter } from "react-router-dom";
 
 class TodoDetail extends React.Component {
   constructor(props) {
@@ -27,6 +29,10 @@ class TodoDetail extends React.Component {
     })
       .then(response => {
         if (!response.ok) {
+          if (response.status == 401) {
+            Authentication.logOut();
+            this.props.history.push("/login");
+          }
           throw response.status;
         }
 
@@ -142,4 +148,4 @@ class TodoDetail extends React.Component {
   }
 }
 
-export default TodoDetail;
+export default withRouter(TodoDetail);

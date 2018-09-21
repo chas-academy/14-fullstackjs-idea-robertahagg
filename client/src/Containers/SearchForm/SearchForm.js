@@ -1,9 +1,7 @@
 import React from "react";
-import axios from "axios";
 import { TodoSuggestionList } from "../../Views";
-
-const { API_KEY } = process.env;
-const API_URL = "/todos";
+import Authentication from "../../Authentication";
+import { withRouter } from "react-router-dom";
 
 class SearchForm extends React.Component {
   state = {
@@ -20,6 +18,10 @@ class SearchForm extends React.Component {
     })
       .then(response => {
         if (!response.ok) {
+          if (response.status == 401) {
+            Authentication.logOut();
+            this.props.history.push("/login");
+          }
           throw response.status;
         }
 
@@ -59,4 +61,4 @@ class SearchForm extends React.Component {
   }
 }
 
-export default SearchForm;
+export default withRouter(SearchForm);
