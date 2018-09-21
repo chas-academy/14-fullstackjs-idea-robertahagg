@@ -1,5 +1,7 @@
 import React from "react";
 import { ListView } from "../../Views/";
+import Authentication from "../../Authentication";
+import { withRouter } from "react-router-dom";
 
 class TodosList extends React.Component {
   constructor() {
@@ -19,6 +21,11 @@ class TodosList extends React.Component {
     })
       .then(response => {
         if (!response.ok) {
+          if (response.status == 401) {
+            Authentication.logOut();
+            this.props.history.push("/login");
+          }
+
           throw response.status;
         }
 
@@ -37,4 +44,4 @@ class TodosList extends React.Component {
   }
 }
 
-export default TodosList;
+export default withRouter(TodosList);

@@ -1,5 +1,7 @@
 import React from "react";
 import { AdminDashboard } from "../../Views";
+import Authentication from "../../Authentication";
+import { withRouter } from "react-router-dom";
 
 class AdminDashboardUsers extends React.Component {
   constructor() {
@@ -19,6 +21,10 @@ class AdminDashboardUsers extends React.Component {
     })
       .then(response => {
         if (!response.ok) {
+          if (response.status == 401) {
+            Authentication.logOut();
+            this.props.history.push("/login");
+          }
           throw response.status;
         }
 
@@ -36,4 +42,4 @@ class AdminDashboardUsers extends React.Component {
     return <AdminDashboard userInput={leUsers} />;
   }
 }
-export default AdminDashboardUsers;
+export default withRouter(AdminDashboardUsers);

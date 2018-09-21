@@ -1,5 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Authentication from "../../Authentication";
+import { withRouter } from "react-router-dom";
 
 class AddToDoForm extends React.Component {
   constructor(props) {
@@ -54,6 +56,10 @@ class AddToDoForm extends React.Component {
     })
       .then(function(response) {
         if (!response.ok) {
+          if (response.status == 401) {
+            Authentication.logOut();
+            this.props.history.push("/login");
+          }
           throw response.status;
         }
 
@@ -116,4 +122,4 @@ class AddToDoForm extends React.Component {
   }
 }
 
-export default AddToDoForm;
+export default withRouter(AddToDoForm);

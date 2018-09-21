@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class LogInForm extends React.Component {
@@ -16,6 +17,7 @@ class LogInForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.routeChange = this.routeChange.bind(this);
   }
 
   handleChange(event) {
@@ -28,17 +30,25 @@ class LogInForm extends React.Component {
     this.setState({ user: userLoggedIn });
   }
 
+  routeChange() {
+    let path = `/list`;
+    this.props.history.push(path);
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
     this.setState({ submitted: true });
     const { user } = this.state;
+
     const { dispatch } = this.props;
     if (user.email && user.password) {
       console.log("User has sucessfully been logged in..");
 
       //dispatch(login(user));
     }
+
+    const _this = this;
 
     fetch("/me/token", {
       method: "POST",
@@ -50,6 +60,7 @@ class LogInForm extends React.Component {
           throw response.status;
         }
 
+        _this.routeChange();
         return response;
       })
       .catch(function(error) {
@@ -59,6 +70,7 @@ class LogInForm extends React.Component {
 
   render() {
     const { user, submitted } = this.state;
+
     return (
       <div>
         <form className="LoginForm">
@@ -100,4 +112,4 @@ class LogInForm extends React.Component {
   }
 }
 
-export default LogInForm;
+export default withRouter(LogInForm);

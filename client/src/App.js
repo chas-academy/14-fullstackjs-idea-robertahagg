@@ -2,10 +2,18 @@ import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+import Authentication from "./Authentication";
+
 import { TodosList } from "./Containers/";
 import { AdminDashboardUsers } from "./Containers/";
 import { UserDetail } from "./Containers";
 import { TodoDetail } from "./Containers";
+import {
+  BrowserRouter as Router,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 
 import {
   AddToDo,
@@ -46,6 +54,23 @@ library.add(
   faEdit
 );
 
+function PrivateRoute({ component: Component, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        Authentication.isLoggedIn() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: "/login", state: { from: props.location } }}
+          />
+        )
+      }
+    />
+  );
+}
+
 class App extends Component {
   render() {
     return (
@@ -55,17 +80,20 @@ class App extends Component {
             <Route exact path="/" component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/logout" component={LogOut} />
-            <Route path="/addtodo" component={AddToDo} />
+            <PrivateRoute path="/logout" component={LogOut} />
+            <PrivateRoute path="/addtodo" component={AddToDo} />
             {/* <Route path="/listview/todo/:id" component={Not done yet!} /> */}
-            <Route path="/list" component={TodosList} />
-            <Route path="/todos/:id" component={TodoDetailView} />
-            <Route path="/progress" component={Progress} />
-            <Route path="/search" component={Search} />
-            <Route path="/admin/login" component={AdminLogin} />
-            <Route path="/admin/dashboard" component={AdminDashboardUsers} />
-            <Route path="/admin/users/:id" component={UserDetailView} />
-            <Route component={NotFoundPage} />
+            <PrivateRoute path="/list" component={TodosList} />
+            <PrivateRoute path="/todos/:id" component={TodoDetailView} />
+            <PrivateRoute path="/progress" component={Progress} />
+            <PrivateRoute path="/search" component={Search} />
+            <PrivateRoute path="/admin/login" component={AdminLogin} />
+            <PrivateRoute
+              path="/admin/dashboard"
+              component={AdminDashboardUsers}
+            />
+            <PrivateRoute path="/admin/users/:id" component={UserDetailView} />
+            <PrivateRoute component={NotFoundPage} />
           </Switch>
         </BrowserRouter>
       </div>
