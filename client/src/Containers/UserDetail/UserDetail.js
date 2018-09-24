@@ -105,6 +105,26 @@ class UserDetail extends React.Component {
     });
   }
 
+  updateUser() {
+    console.log("Updating user " + this.props.userId);
+
+    fetch("/users/" + this.props.userId, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(this.state.user)
+    }).then(response => {
+      if (!response.ok) {
+        if (response.status == 401) {
+          Authentication.logOut();
+          this.props.history.push("/login");
+        }
+        throw response.status;
+      }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -139,7 +159,12 @@ class UserDetail extends React.Component {
           />
           <br />
         </form>
-        <button onClick={this.handleSubmit} type="submit">
+        <button
+          onClick={event => {
+            this.updateUser();
+          }}
+          type="submit"
+        >
           UPDATE
         </button>
         <button

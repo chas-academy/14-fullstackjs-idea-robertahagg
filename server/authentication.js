@@ -32,6 +32,145 @@ function addNewUser(req, res) {
     }
   );
 }
+function getUsers(req, res) {
+  console.log("getUsers user id:" + req.userId);
+  const MongoClient = require("mongodb").MongoClient;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      db.collection("users")
+        .find()
+        .toArray(function(err, result) {
+          if (err) throw err;
+
+          console.log(result);
+          res.send(result);
+        });
+    }
+  );
+}
+
+function getUserDetails(req, res) {
+  const MongoClient = require("mongodb").MongoClient;
+  const ObjectId = require("mongodb").ObjectId;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      userId = req.params.id;
+
+      db.collection("users").findOne({ _id: ObjectId(userId) }, function(
+        err,
+        result
+      ) {
+        if (err) throw err;
+
+        console.log(result);
+
+        const userToReturn = {
+          username: result.username,
+          email: result.email
+        };
+
+        res.send(userToReturn);
+      });
+    }
+  );
+}
+
+function deleteUser(req, res) {
+  const MongoClient = require("mongodb").MongoClient;
+  const ObjectId = require("mongodb").ObjectId;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      const userId = req.params.id;
+
+      console.log("DELETING user " + userId);
+
+      if (!userId || userId < 0) {
+        res.status(404).send();
+        return;
+      }
+
+      db.collection("users").findOneAndDelete(
+        { _id: ObjectId(userId) },
+        function(err, result) {
+          if (err) throw err;
+
+          //   console.log(result);
+          res.send(result);
+        }
+      );
+    }
+  );
+}
+
+function updateUser(req, res) {
+  const MongoClient = require("mongodb").MongoClient;
+  const ObjectId = require("mongodb").ObjectId;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      const userId = req.params.id;
+      const userDataFromRequest = req.body;
+
+      if (
+        !userDataFromRequest ||
+        !userDataFromRequest.username ||
+        !userDataFromRequest.email
+      ) {
+        res.status(400).send();
+        return;
+      }
+
+      const mongoUpdate = {
+        $set: {
+          username: userDataFromRequest.username,
+          email: userDataFromRequest.email
+        }
+      };
+
+      console.log("UPDATING user " + userId);
+      console.log(mongoUpdate);
+
+      if (!userId || userId < 0) {
+        res.status(404).send();
+        return;
+      }
+
+      db.collection("users").findOneAndUpdate(
+        { _id: ObjectId(userId) },
+        mongoUpdate,
+        function(err, result) {
+          if (err) throw err;
+
+          //   console.log(result);
+          res.send(result);
+        }
+      );
+    }
+  );
+}
 
 function userLogin(req, res) {
   const MongoClient = require("mongodb").MongoClient;
@@ -98,5 +237,9 @@ function createTokenForUser(userId) {
 
 module.exports = {
   addNewUser: addNewUser,
-  userLogin: userLogin
+  userLogin: userLogin,
+  getUsers: getUsers,
+  getUserDetails: getUserDetails,
+  deleteUser: deleteUser,
+  updateUser: updateUser
 };
