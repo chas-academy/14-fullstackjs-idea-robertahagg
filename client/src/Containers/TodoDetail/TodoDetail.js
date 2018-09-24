@@ -114,6 +114,26 @@ class TodoDetail extends React.Component {
     });
   }
 
+  updateTodo() {
+    console.log("Updating todo " + this.props.todoId);
+
+    fetch("/todos/" + this.props.todoId, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(this.state.newTodo)
+    }).then(response => {
+      if (!response.ok) {
+        if (response.status == 401) {
+          Authentication.logOut();
+          this.props.history.push("/login");
+        }
+        throw response.status;
+      }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -158,7 +178,12 @@ class TodoDetail extends React.Component {
           />
         </form>
 
-        <button onClick={this.handleSubmit} type="submit">
+        <button
+          onClick={event => {
+            this.updateTodo();
+          }}
+          type="submit"
+        >
           UPDATE
         </button>
         <button

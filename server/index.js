@@ -138,13 +138,67 @@ function deleteTodo(req, res) {
   );
 }
 
+function updateTodo(req, res) {
+  const MongoClient = require("mongodb").MongoClient;
+  const ObjectId = require("mongodb").ObjectId;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      const todoId = req.params.id;
+      const todoDataFromRequest = req.body;
+
+      if (
+        !todoDataFromRequest ||
+        !todoDataFromRequest.title ||
+        !todoDataFromRequest.place ||
+        !todoDataFromRequest.notes
+      ) {
+        res.status(400).send();
+        return;
+      }
+
+      const mongoUpdate = {
+        $set: {
+          title: todoDataFromRequest.title,
+          place: todoDataFromRequest.place,
+          notes: todoDataFromRequest.notes
+        }
+      };
+
+      console.log("UPDATING todo " + todoId);
+      console.log(mongoUpdate);
+
+      if (!todoId || todoId < 0) {
+        res.status(404).send();
+        return;
+      }
+
+      db.collection("todos").findOneAndUpdate(
+        { _id: ObjectId(todoId) },
+        mongoUpdate,
+        function(err, result) {
+          if (err) throw err;
+
+          //   console.log(result);
+          res.send(result);
+        }
+      );
+    }
+  );
+}
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get("/todos", TokenVerify, (req, res) => getTodos(req, res));
 app.post("/todos", (req, res) => addTodo(req, res));
 app.get("/todos/:id", TokenVerify, (req, res) => getTodoDetails(req, res));
-app.put("/todos/:id", (req, res) => res.send("Hello World!"));
+app.put("/todos/:id", TokenVerify, (req, res) => updateTodo(req, res));
 app.delete("/todos/:id", TokenVerify, (req, res) => deleteTodo(req, res));
 
 app.get("/users", TokenVerify, (req, res) => authentication.getUsers(req, res));
