@@ -47,6 +47,8 @@ class AddToDoForm extends React.Component {
 
     //this.props.onSubmit({ title: title, place: place, notes: notes });
 
+    const thiss = this;
+
     fetch("/todos", {
       method: "POST",
       headers: {
@@ -58,12 +60,12 @@ class AddToDoForm extends React.Component {
         if (!response.ok) {
           if (response.status == 401) {
             Authentication.logOut();
-            this.props.history.push("/login");
+            thiss.props.history.push("/login");
           }
           throw response.status;
         }
 
-        this.setState({ title: "", place: "", notes: "" });
+        thiss.setState({ newTodo: { title: "", place: "", notes: "" } });
       })
       .catch(function(error) {
         console.log(error);
@@ -81,7 +83,7 @@ class AddToDoForm extends React.Component {
           <input
             type="text"
             placeholder=""
-            value={this.state.title}
+            value={this.state.newTodo.title}
             onChange={this.handleChange}
             name="title"
             required
@@ -95,7 +97,7 @@ class AddToDoForm extends React.Component {
           <input
             type="text"
             placeholder=""
-            value={this.state.place}
+            value={this.state.newTodo.place}
             onChange={this.handleChange}
             name="place"
             required
@@ -106,7 +108,7 @@ class AddToDoForm extends React.Component {
             placeholder="Add notes here.."
             rows="8"
             cols="50"
-            value={this.state.notes}
+            value={this.state.newTodo.notes}
             onChange={this.handleChange}
             name="notes"
             form="notesform"

@@ -1,11 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import listview from "../../Img/listview.jpg";
+import Authentication from "../../Authentication";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./style.css";
 
 const ListView = props => {
   let todoArray = props.todosInput;
+
+  function deleteTodo(todoId) {
+    console.log("Deleting todo " + todoId);
+
+    fetch("/todos/" + todoId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(response => {
+      if (!response.ok) {
+        if (response.status == 401) {
+          Authentication.logOut();
+          this.props.history.push("/login");
+        }
+        throw response.status;
+      }
+    });
+  }
 
   return (
     <div>
@@ -25,12 +45,16 @@ const ListView = props => {
       <ul className="TodoListArray">
         {todoArray.map(todo => (
           <li key={todo._id}>
-            <Link to={`/todos/${todo._id}`}>
-              {todo.title}{" "}
-              <b className="BtnDone">
-                <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp;
-              </b>
-            </Link>
+            <Link to={`/todos/${todo._id}`}>{todo.title} </Link>
+
+            <button
+              className="BtnDone"
+              onClick={event => {
+                deleteTodo(todo._id);
+              }}
+            >
+              <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp;
+            </button>
           </li>
         ))}
       </ul>

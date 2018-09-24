@@ -72,6 +72,7 @@ class TodoDetail extends React.Component {
     //this.props.onSubmit({ title: title, place: place, notes: notes });
 
     fetch("/todos/", {
+      //Använd för update users
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -93,6 +94,26 @@ class TodoDetail extends React.Component {
         console.log(error);
       });
   }
+
+  deleteTodo() {
+    console.log("Deleting todo " + this.props.todoId);
+
+    fetch("/todos/" + this.props.todoId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(response => {
+      if (!response.ok) {
+        if (response.status == 401) {
+          Authentication.logOut();
+          this.props.history.push("/login");
+        }
+        throw response.status;
+      }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -140,7 +161,12 @@ class TodoDetail extends React.Component {
         <button onClick={this.handleSubmit} type="submit">
           UPDATE
         </button>
-        <button onClick={this.handleSubmit} type="submit">
+        <button
+          onClick={event => {
+            this.deleteTodo();
+          }}
+          type="submit"
+        >
           DELETE
         </button>
       </div>

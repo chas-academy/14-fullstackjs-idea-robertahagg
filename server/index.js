@@ -114,7 +114,7 @@ function getTodoDetails(req, res) {
 
       const db = client.db("handly");
 
-      todoId = req.params.id;
+      const todoId = req.params.id;
 
       db.collection("todos").findOne({ _id: ObjectId(todoId) }, function(
         err,
@@ -122,7 +122,7 @@ function getTodoDetails(req, res) {
       ) {
         if (err) throw err;
 
-        console.log(result);
+        // console.log(result);
 
         const todoToReturn = {
           title: result.title,
@@ -153,9 +153,42 @@ function addTodo(req, res) {
       db.collection("todos").save(todo, function(err, result) {
         if (err) throw err;
 
-        console.log(result);
+        // console.log(result);
         res.send(result);
       });
+    }
+  );
+}
+
+function deleteTodo(req, res) {
+  const MongoClient = require("mongodb").MongoClient;
+  const ObjectId = require("mongodb").ObjectId;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      const todoId = req.params.id;
+
+      console.log("DELETING todo " + todoId);
+
+      if (!todoId || todoId < 0) {
+        res.status(404).send();
+        return;
+      }
+
+      db.collection("todos").findOneAndDelete(
+        { _id: ObjectId(todoId) },
+        function(err, result) {
+          if (err) throw err;
+
+          //   console.log(result);
+          res.send(result);
+        }
+      );
     }
   );
 }
@@ -167,7 +200,7 @@ app.get("/todos", TokenVerify, (req, res) => getTodos(req, res));
 app.post("/todos", (req, res) => addTodo(req, res));
 app.get("/todos/:id", TokenVerify, (req, res) => getTodoDetails(req, res));
 app.put("/todos/:id", (req, res) => res.send("Hello World!"));
-app.delete("/todos/:id", (req, res) => res.send("Hello World!"));
+app.delete("/todos/:id", TokenVerify, (req, res) => deleteTodo(req, res));
 
 app.get("/users", TokenVerify, (req, res) => getUsers(req, res));
 app.post("/users", (req, res) => authentication.addNewUser(req, res));
