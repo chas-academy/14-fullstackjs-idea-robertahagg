@@ -86,6 +86,24 @@ class UserDetail extends React.Component {
         console.log(error);
       });
   }
+  deleteUser() {
+    console.log("Deleting user " + this.props.userId);
+
+    fetch("/users/" + this.props.userId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(response => {
+      if (!response.ok) {
+        if (response.status == 401) {
+          Authentication.logOut();
+          this.props.history.push("/login");
+        }
+        throw response.status;
+      }
+    });
+  }
 
   render() {
     return (
@@ -124,7 +142,12 @@ class UserDetail extends React.Component {
         <button onClick={this.handleSubmit} type="submit">
           UPDATE
         </button>
-        <button onClick={this.handleSubmit} type="submit">
+        <button
+          onClick={event => {
+            this.deleteUser();
+          }}
+          type="submit"
+        >
           DELETE
         </button>
       </div>

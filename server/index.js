@@ -69,6 +69,39 @@ function getUserDetails(req, res) {
   );
 }
 
+function deleteUser(req, res) {
+  const MongoClient = require("mongodb").MongoClient;
+  const ObjectId = require("mongodb").ObjectId;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      const userId = req.params.id;
+
+      console.log("DELETING user " + userId);
+
+      if (!userId || userId < 0) {
+        res.status(404).send();
+        return;
+      }
+
+      db.collection("users").findOneAndDelete(
+        { _id: ObjectId(userId) },
+        function(err, result) {
+          if (err) throw err;
+
+          //   console.log(result);
+          res.send(result);
+        }
+      );
+    }
+  );
+}
+
 function getTodos(req, res) {
   console.log("getTodos user id:" + req.userId);
 
@@ -206,7 +239,7 @@ app.get("/users", TokenVerify, (req, res) => getUsers(req, res));
 app.post("/users", (req, res) => authentication.addNewUser(req, res));
 app.get("/users/:id", TokenVerify, (req, res) => getUserDetails(req, res)); // get profile
 app.put("/users/:id", (req, res) => res.send("Hello World!")); // write profile
-app.delete("/users/:id", (req, res) => res.send("Hello World!"));
+app.delete("/users/:id", TokenVerify, (req, res) => deleteUser(req, res));
 
 app.post("/me/token", (req, res) => authentication.userLogin(req, res));
 
