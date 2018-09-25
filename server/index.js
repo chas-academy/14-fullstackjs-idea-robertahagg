@@ -14,61 +14,6 @@ const path = require("path");
 // For deploying, so client code is served by our backend server.
 //app.use(express.static(path.join(__dirname, 'client/build')));
 
-function getUsers(req, res) {
-  console.log("getUsers user id:" + req.userId);
-  const MongoClient = require("mongodb").MongoClient;
-
-  MongoClient.connect(
-    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
-    function(err, client) {
-      if (err) throw err;
-
-      const db = client.db("handly");
-
-      db.collection("users")
-        .find()
-        .toArray(function(err, result) {
-          if (err) throw err;
-
-          console.log(result);
-          res.send(result);
-        });
-    }
-  );
-}
-
-function getUserDetails(req, res) {
-  const MongoClient = require("mongodb").MongoClient;
-  const ObjectId = require("mongodb").ObjectId;
-
-  MongoClient.connect(
-    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
-    function(err, client) {
-      if (err) throw err;
-
-      const db = client.db("handly");
-
-      userId = req.params.id;
-
-      db.collection("users").findOne({ _id: ObjectId(userId) }, function(
-        err,
-        result
-      ) {
-        if (err) throw err;
-
-        console.log(result);
-
-        const userToReturn = {
-          username: result.username,
-          email: result.email
-        };
-
-        res.send(userToReturn);
-      });
-    }
-  );
-}
-
 function getTodos(req, res) {
   console.log("getTodos user id:" + req.userId);
 
@@ -114,7 +59,7 @@ function getTodoDetails(req, res) {
 
       const db = client.db("handly");
 
-      todoId = req.params.id;
+      const todoId = req.params.id;
 
       db.collection("todos").findOne({ _id: ObjectId(todoId) }, function(
         err,
@@ -122,7 +67,7 @@ function getTodoDetails(req, res) {
       ) {
         if (err) throw err;
 
-        console.log(result);
+        // console.log(result);
 
         const todoToReturn = {
           title: result.title,
@@ -153,9 +98,96 @@ function addTodo(req, res) {
       db.collection("todos").save(todo, function(err, result) {
         if (err) throw err;
 
-        console.log(result);
+        // console.log(result);
         res.send(result);
       });
+    }
+  );
+}
+
+function deleteTodo(req, res) {
+  const MongoClient = require("mongodb").MongoClient;
+  const ObjectId = require("mongodb").ObjectId;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      const todoId = req.params.id;
+
+      console.log("DELETING todo " + todoId);
+
+      if (!todoId || todoId < 0) {
+        res.status(404).send();
+        return;
+      }
+
+      db.collection("todos").findOneAndDelete(
+        { _id: ObjectId(todoId) },
+        function(err, result) {
+          if (err) throw err;
+
+          //   console.log(result);
+          res.send(result);
+        }
+      );
+    }
+  );
+}
+
+function updateTodo(req, res) {
+  const MongoClient = require("mongodb").MongoClient;
+  const ObjectId = require("mongodb").ObjectId;
+
+  MongoClient.connect(
+    "mongodb://backend:h3lloyou@ds125272.mlab.com:25272/handly",
+    function(err, client) {
+      if (err) throw err;
+
+      const db = client.db("handly");
+
+      const todoId = req.params.id;
+      const todoDataFromRequest = req.body;
+
+      if (
+        !todoDataFromRequest ||
+        !todoDataFromRequest.title ||
+        !todoDataFromRequest.place ||
+        !todoDataFromRequest.notes
+      ) {
+        res.status(400).send();
+        return;
+      }
+
+      const mongoUpdate = {
+        $set: {
+          title: todoDataFromRequest.title,
+          place: todoDataFromRequest.place,
+          notes: todoDataFromRequest.notes
+        }
+      };
+
+      console.log("UPDATING todo " + todoId);
+      console.log(mongoUpdate);
+
+      if (!todoId || todoId < 0) {
+        res.status(404).send();
+        return;
+      }
+
+      db.collection("todos").findOneAndUpdate(
+        { _id: ObjectId(todoId) },
+        mongoUpdate,
+        function(err, result) {
+          if (err) throw err;
+
+          //   console.log(result);
+          res.send(result);
+        }
+      );
     }
   );
 }
@@ -166,14 +198,22 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.get("/todos", TokenVerify, (req, res) => getTodos(req, res));
 app.post("/todos", (req, res) => addTodo(req, res));
 app.get("/todos/:id", TokenVerify, (req, res) => getTodoDetails(req, res));
-app.put("/todos/:id", (req, res) => res.send("Hello World!"));
-app.delete("/todos/:id", (req, res) => res.send("Hello World!"));
+app.put("/todos/:id", TokenVerify, (req, res) => updateTodo(req, res));
+app.delete("/todos/:id", TokenVerify, (req, res) => deleteTodo(req, res));
 
-app.get("/users", TokenVerify, (req, res) => getUsers(req, res));
-app.post("/users", (req, res) => authentication.addNewUser(req, res));
-app.get("/users/:id", TokenVerify, (req, res) => getUserDetails(req, res)); // get profile
-app.put("/users/:id", (req, res) => res.send("Hello World!")); // write profile
-app.delete("/users/:id", (req, res) => res.send("Hello World!"));
+app.get("/users", TokenVerify, (req, res) => authentication.getUsers(req, res));
+app.post("/users", TokenVerify, (req, res) =>
+  authentication.addNewUser(req, res)
+);
+app.get("/users/:id", TokenVerify, (req, res) =>
+  authentication.getUserDetails(req, res)
+); // get profile
+app.put("/users/:id", TokenVerify, (req, res) =>
+  authentication.updateUser(req, res)
+);
+app.delete("/users/:id", TokenVerify, (req, res) =>
+  authentication.deleteUser(req, res)
+);
 
 app.post("/me/token", (req, res) => authentication.userLogin(req, res));
 
