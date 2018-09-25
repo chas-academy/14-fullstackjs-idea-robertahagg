@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import listview from "../../Img/listview.jpg";
 import Authentication from "../../Authentication";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import FlipMove from "react-flip-move";
 import "./style.css";
 
 const ListView = props => {
@@ -43,20 +44,22 @@ const ListView = props => {
       </Link>
 
       <ul className="TodoListArray">
-        {todoArray.map(todo => (
-          <li key={todo._id}>
-            <Link to={`/todos/${todo._id}`}>{todo.title} </Link>
+        <FlipMove>
+          {todoArray.map(todo => (
+            <li key={todo._id}>
+              <Link to={`/todos/${todo._id}`}>{todo.title} </Link>
 
-            <button
-              className="BtnDone"
-              onClick={event => {
-                deleteTodo(todo._id);
-              }}
-            >
-              <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp;
-            </button>
-          </li>
-        ))}
+              <button
+                className="BtnDone"
+                onClick={event => {
+                  deleteTodo(todo._id);
+                }}
+              >
+                <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp;
+              </button>
+            </li>
+          ))}
+        </FlipMove>
       </ul>
     </div>
   );
