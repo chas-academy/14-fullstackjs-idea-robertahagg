@@ -9,25 +9,6 @@ import "./style.css";
 const ListView = props => {
   let todoArray = props.todosInput;
 
-  function deleteTodo(todoId) {
-    console.log("Deleting todo " + todoId);
-
-    fetch("/todos/" + todoId, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(response => {
-      if (!response.ok) {
-        if (response.status == 401) {
-          Authentication.logOut();
-          this.props.history.push("/login");
-        }
-        throw response.status;
-      }
-    });
-  }
-
   return (
     <div>
       <img className="BackGroundImg" src={listview} alt="handlyHeader" />
@@ -52,7 +33,7 @@ const ListView = props => {
               <button
                 className="BtnDone"
                 onClick={event => {
-                  deleteTodo(todo._id);
+                  props.deleteTodoCallback(todo._id);
                 }}
               >
                 <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp;

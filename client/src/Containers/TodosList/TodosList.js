@@ -37,10 +37,29 @@ class TodosList extends React.Component {
       });
   }
 
+  deleteTodo(todoId) {
+    console.log("Deleting todo " + todoId);
+
+    fetch("/todos/" + todoId, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(response => {
+      if (!response.ok) {
+        if (response.status == 401) {
+          Authentication.logOut();
+          this.props.history.push("/login");
+        }
+        throw response.status;
+      }
+    });
+  }
+
   render() {
     let leTodos = this.state.todos;
 
-    return <ListView todosInput={leTodos} />;
+    return <ListView todosInput={leTodos} deleteTodoCallback={deleteTodo} />;
   }
 }
 
