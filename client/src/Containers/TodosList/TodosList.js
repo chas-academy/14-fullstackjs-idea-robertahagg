@@ -10,9 +10,15 @@ class TodosList extends React.Component {
     this.state = {
       todos: []
     };
+
+    this.deleteTodo = this.deleteTodo.bind(this);
   }
 
   componentDidMount() {
+    this.refreshTodoList();
+  }
+
+  refreshTodoList() {
     fetch("/todos", {
       method: "GET",
       headers: {
@@ -53,13 +59,17 @@ class TodosList extends React.Component {
         }
         throw response.status;
       }
+
+      this.refreshTodoList();
     });
   }
 
   render() {
     let leTodos = this.state.todos;
 
-    return <ListView todosInput={leTodos} deleteTodoCallback={deleteTodo} />;
+    return (
+      <ListView todosInput={leTodos} deleteTodoCallback={this.deleteTodo} />
+    );
   }
 }
 
