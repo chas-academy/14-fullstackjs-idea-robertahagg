@@ -96,6 +96,7 @@ class App extends Component {
             <PrivateRoute component={NotFoundPage} />
           </Switch>
         </BrowserRouter>
+        <div className="bottomNavigationSpacer" />
         <MainBottomNavigation />
       </div>
     );

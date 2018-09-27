@@ -11,8 +11,11 @@ import color from "../../../node_modules/@material-ui/core/colors/deepPurple";
 
 const styles = {
   root: {
-    width: 500,
-    height: 50
+    position: "fixed",
+    bottom: "0px",
+    left: "0px",
+    width: "100%",
+    height: "56px"
   }
 };
 

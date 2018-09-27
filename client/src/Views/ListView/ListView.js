@@ -13,10 +13,6 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
     fontFamily: "'Open Sans Condensed', sans-serif"
-  },
-
-  iconSmall: {
-    fontSize: 15
   }
 });
 
