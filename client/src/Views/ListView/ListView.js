@@ -11,7 +11,8 @@ import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    fontFamily: "'Open Sans Condensed', sans-serif"
   },
 
   iconSmall: {

@@ -5,10 +5,11 @@
 .App {
   text-align: center;
   background-color: #0b2752;
-}
-* {
-  /* background-color: #0b2752; */
-  color: white;
   font-family: "Open Sans Condensed", sans-serif;
+  color: white;
+}
+
+a {
   text-decoration: none;
+  color: inherit;
 }
