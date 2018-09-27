@@ -1,27 +1,46 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import listview from "../../Img/listview.jpg";
-import Authentication from "../../Authentication";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FlipMove from "react-flip-move";
 import "./style.css";
 
+import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit
+  },
+
+  iconSmall: {
+    fontSize: 15
+  }
+});
+
 const ListView = props => {
   let todoArray = props.todosInput;
+
+  const { classes } = props;
 
   return (
     <div>
       <img className="BackGroundImg" src={listview} alt="handlyHeader" />
       <Link to="/addtodo">
-        <button>Add a new to do</button>
+        <Button variant="contained" color="primary" className={classes.button}>
+          Add Todo
+        </Button>
       </Link>
       <Link to="/progress">
-        <button>View progress</button>
+        <Button variant="contained" color="primary" className={classes.button}>
+          Progress
+        </Button>
       </Link>
       <Link to="/search">
-        <button>
-          <FontAwesomeIcon icon="search" /> Search
-        </button>
+        <Button variant="contained" color="primary" className={classes.button}>
+          Search
+        </Button>
       </Link>
 
       <ul className="TodoListArray">
@@ -30,14 +49,17 @@ const ListView = props => {
             <li key={todo._id}>
               <Link to={`/todos/${todo._id}`}>{todo.title} </Link>
 
-              <button
-                className="BtnDone"
+              <Button
+                variant="fab"
+                color="primary"
+                aria-label="Delete"
+                className={classes.button}
                 onClick={event => {
                   props.deleteTodoCallback(todo._id);
                 }}
               >
-                <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp;
-              </button>
+                <DoneOutlineIcon />
+              </Button>
             </li>
           ))}
         </FlipMove>
@@ -46,4 +68,8 @@ const ListView = props => {
   );
 };
 
-export default ListView;
+ListView.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(ListView);

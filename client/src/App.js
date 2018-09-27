@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Authentication from "./Authentication";
 
-import { TodosList } from "./Containers/";
+import { TodosList, MainBottomNavigation } from "./Containers/";
 import { AdminDashboardUsers } from "./Containers/";
 import { UserDetail } from "./Containers";
 import { TodoDetail } from "./Containers";
@@ -96,6 +96,7 @@ class App extends Component {
             <PrivateRoute component={NotFoundPage} />
           </Switch>
         </BrowserRouter>
+        <MainBottomNavigation />
       </div>
     );
   }
