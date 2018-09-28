@@ -21,6 +21,20 @@ li {
   background: rgba(72, 62, 139, 0.4);
   border: 2px solid rgba(255, 255, 255, 0.25);
 }
+input {
+  color: white;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 15px;
+}
+.LoginFormContainer {
+  margin-bottom: 100%;
+  margin-top: 0px;
+  padding-bottom: 20%;
+}
+.LoginForm {
+  margin-top: 0px;
+  padding-top: 10px;
+}
 
 @media only screen and (max-width: 600px) {
   .BackGroundImg {

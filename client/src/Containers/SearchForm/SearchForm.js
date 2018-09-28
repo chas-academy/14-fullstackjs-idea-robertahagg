@@ -50,7 +50,7 @@ class SearchForm extends React.Component {
     return (
       <form className="MainsearchForm">
         <input
-          className="SearchInput"
+          className="Search Todos"
           placeholder="Find todos..."
           ref={input => (this.search = input)}
           onChange={this.handleInputChange}

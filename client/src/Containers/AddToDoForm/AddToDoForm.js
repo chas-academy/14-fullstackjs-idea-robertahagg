@@ -87,7 +87,7 @@ class AddToDoForm extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <div className="TodoFormContainer">
         <form className="LoginForm">
           <label for="title">
             <b>

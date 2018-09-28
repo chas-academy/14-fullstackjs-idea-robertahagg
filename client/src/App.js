@@ -7,7 +7,12 @@ import Authentication from "./Authentication";
 import { TodosList, MainBottomNavigation } from "./Containers/";
 import { AdminDashboardUsers } from "./Containers/";
 
-import { BrowserRouter as Router, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 
 import {
   AddToDo,
@@ -22,14 +27,28 @@ import {
 } from "./Views";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faEnvelope,
-  faUnlock
+  faUnlock,
+  faBell,
+  faHome,
+  faCheckCircle,
+  faSearch,
+  faEdit
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faUser, faEnvelope, faUnlock);
+library.add(
+  faUser,
+  faEnvelope,
+  faUnlock,
+  faBell,
+  faHome,
+  faCheckCircle,
+  faSearch,
+  faEdit
+);
 
 function PrivateRoute({ component: Component, ...rest }) {
   return (

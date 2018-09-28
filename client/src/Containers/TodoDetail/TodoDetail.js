@@ -2,6 +2,16 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Authentication from "../../Authentication";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    fontFamily: "'Open Sans Condensed', sans-serif"
+  }
+});
 
 class TodoDetail extends React.Component {
   constructor(props) {
@@ -135,12 +145,13 @@ class TodoDetail extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div>
-        <form className="LoginForm">
+      <div className="TodoFormContainer">
+        <form className="TodoForm">
           <label for="title">
             <b>
-              <FontAwesomeIcon icon="bell" /> Title
+              <FontAwesomeIcon icon="bell" /> Title:
             </b>
           </label>
           <input
@@ -155,7 +166,7 @@ class TodoDetail extends React.Component {
 
           <label for="place">
             <FontAwesomeIcon icon="home" />
-            <b> Place</b>
+            <b> Place:</b>
           </label>
           <input
             type="text"
@@ -178,25 +189,35 @@ class TodoDetail extends React.Component {
           />
         </form>
 
-        <button
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
           onClick={event => {
             this.updateTodo();
           }}
           type="submit"
         >
           UPDATE
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
           onClick={event => {
             this.deleteTodo();
           }}
           type="submit"
         >
           DELETE
-        </button>
+        </Button>
       </div>
     );
   }
 }
 
-export default withRouter(TodoDetail);
+TodoDetail.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(TodoDetail);
