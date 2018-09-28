@@ -1,14 +1,19 @@
-.BackGroundImg{
-    height: 600px;
-    width: 100%;
+.BackGroundImg {
+  height: 600px;
+  width: 100%;
+}
+.MainsearchForm {
+  margin-bottom: 100%;
+  margin-top: 40px;
+}
+.SearchInput {
+  font-size: 15px;
+  color: white;
 }
 
-
-
-
 @media only screen and (max-width: 600px) {
-    .BackGroundImg {
-        height: 300px;
-        width: 100%;
-    }
+  .BackGroundImg {
+    height: 300px;
+    width: 100%;
+  }
 }

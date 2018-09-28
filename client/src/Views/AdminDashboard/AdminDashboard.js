@@ -5,9 +5,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FlipMove from "react-flip-move";
 
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+import EditIcon from "@material-ui/icons/Edit";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    fontFamily: "'Open Sans Condensed', sans-serif"
+  }
+});
 
 const AdminDashboard = props => {
   let userArray = props.userInput;
+  const { classes } = props;
 
   if (!userArray) {
     return <div />;
@@ -26,11 +38,16 @@ const AdminDashboard = props => {
           {userArray.map(user => (
             <li key={user._id}>
               <Link to={`/admin/users/${user._id}`}>
-                <FontAwesomeIcon className="UserIcon" icon="edit" />
                 {user.username}
-                <b className="BtnDone">
+                <Button
+                  variant="fab"
+                  color="primary"
+                  aria-label="Delete"
+                  className={classes.button}
+                >
+                  <EditIcon />
                   {/* <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp; */}
-                </b>
+                </Button>
               </Link>
             </li>
           ))}
@@ -40,4 +57,8 @@ const AdminDashboard = props => {
   );
 };
 
-export default AdminDashboard;
+AdminDashboard.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(AdminDashboard);
