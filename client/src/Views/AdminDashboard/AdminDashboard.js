@@ -1,7 +1,6 @@
 import React from "react";
 import "./style.css";
 import admindashboard from "../../Img/admindashboard.jpg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FlipMove from "react-flip-move";
 
 import { Link } from "react-router-dom";
@@ -41,11 +40,12 @@ const AdminDashboard = props => {
                 {user.username}
                 <Button
                   variant="fab"
+                  mini
                   color="primary"
                   aria-label="Delete"
                   className={classes.button}
                 >
-                  <EditIcon />
+                  <EditIcon fontSize="small" />
                   {/* <FontAwesomeIcon icon="check-circle" /> &nbsp; Done &nbsp; */}
                 </Button>
               </Link>

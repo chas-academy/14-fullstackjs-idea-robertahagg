@@ -29,11 +29,6 @@ const ListView = props => {
           Add Todo
         </Button>
       </Link>
-      <Link to="/progress">
-        <Button variant="contained" color="primary" className={classes.button}>
-          Progress
-        </Button>
-      </Link>
       <Link to="/search">
         <Button variant="contained" color="primary" className={classes.button}>
           Search
@@ -47,7 +42,10 @@ const ListView = props => {
               <Link to={`/todos/${todo._id}`}>{todo.title} </Link>
 
               <Button
+                alignItems="flex-end"
                 variant="fab"
+                mini
+                marginLeft="30"
                 color="primary"
                 aria-label="Delete"
                 className={classes.button}
@@ -55,7 +53,7 @@ const ListView = props => {
                   props.deleteTodoCallback(todo._id);
                 }}
               >
-                <DoneOutlineIcon />
+                <DoneOutlineIcon fontSize="small" />
               </Button>
             </li>
           ))}

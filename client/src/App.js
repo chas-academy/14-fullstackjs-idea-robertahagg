@@ -6,24 +6,15 @@ import Authentication from "./Authentication";
 
 import { TodosList, MainBottomNavigation } from "./Containers/";
 import { AdminDashboardUsers } from "./Containers/";
-import { UserDetail } from "./Containers";
-import { TodoDetail } from "./Containers";
-import {
-  BrowserRouter as Router,
-  Link,
-  Redirect,
-  withRouter
-} from "react-router-dom";
+
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
 import {
   AddToDo,
-  AdminDashboard,
   AdminLogin,
   Login,
   LogOut,
-  Progress,
   Register,
-  ListView,
   Search,
   NotFoundPage,
   UserDetailView,
@@ -31,28 +22,14 @@ import {
 } from "./Views";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
   faUser,
   faEnvelope,
-  faUnlock,
-  faBell,
-  faHome,
-  faCheckCircle,
-  faSearch,
-  faEdit
+  faUnlock
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(
-  faUser,
-  faEnvelope,
-  faUnlock,
-  faBell,
-  faHome,
-  faCheckCircle,
-  faSearch,
-  faEdit
-);
+library.add(faUser, faEnvelope, faUnlock);
 
 function PrivateRoute({ component: Component, ...rest }) {
   return (
@@ -82,10 +59,8 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <PrivateRoute path="/logout" component={LogOut} />
             <PrivateRoute path="/addtodo" component={AddToDo} />
-            {/* <Route path="/listview/todo/:id" component={Not done yet!} /> */}
             <PrivateRoute path="/list" component={TodosList} />
             <PrivateRoute path="/todos/:id" component={TodoDetailView} />
-            <PrivateRoute path="/progress" component={Progress} />
             <PrivateRoute path="/search" component={Search} />
             <PrivateRoute path="/admin/login" component={AdminLogin} />
             <PrivateRoute
