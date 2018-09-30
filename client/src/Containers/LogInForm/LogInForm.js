@@ -2,6 +2,19 @@ import React from "react";
 import "./style.css";
 import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    fontFamily: "'Open Sans Condensed', sans-serif"
+  },
+  input: {
+    display: "none"
+  }
+});
 
 class LogInForm extends React.Component {
   constructor(props) {
@@ -70,6 +83,7 @@ class LogInForm extends React.Component {
 
   render() {
     const { user, submitted } = this.state;
+    const { classes } = this.props;
 
     return (
       <div>
@@ -103,13 +117,23 @@ class LogInForm extends React.Component {
             required
           />
         </form>
-        <button onClick={this.handleSubmit} type="submit">
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={this.handleSubmit}
+          type="submit"
+        >
           SIGN IN
-        </button>
+        </Button>
         <a className="RegisterAccountLink">register account</a>
       </div>
     );
   }
 }
 
-export default withRouter(LogInForm);
+LogInForm.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(LogInForm);

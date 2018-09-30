@@ -1,37 +1,35 @@
-.LoginForm{
-    margin-top:50px;
-    display:block;  
-    margin-bottom: 40px; 
-}  
-button{
-    font-size: 15px; 
-    font-weight: 100;
-    letter-spacing: 0.5ch;
-    width: 160px;
-    height: 40px; 
-    margin-left: 10px;
-    border: 1px solid rgba(255,255,255,.25);
-    
+.LoginForm {
+  margin-top: 30px;
+  display: block;
+  margin-bottom: 5px;
+}
+button {
+  font-size: 15px;
+  font-weight: 100;
+  letter-spacing: 0.5ch;
+  width: 160px;
+  height: 40px;
+  margin-left: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 input {
-    width: 200px;
-    height: 20px;
-    margin: 10px;
-    margin-bottom: 45px;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(255,255,255,.25);
+  width: 200px;
+  height: 20px;
+  margin: 10px;
+  margin-bottom: 45px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
-.RegisterAccountLink{
-    font-variant: small-caps;
-    display: block;
-    margin-top: 80px;
-    color: rgba(255,255,255,.25);
-    font-size: 16px;
-    letter-spacing: 0.5ch;
-    
+.RegisterAccountLink {
+  font-variant: small-caps;
+  display: block;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 16px;
+  letter-spacing: 0.5ch;
 }
-.NoteBox{
-    border: 1px solid rgba(255,255,255,.25);
+.NoteBox {
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
-

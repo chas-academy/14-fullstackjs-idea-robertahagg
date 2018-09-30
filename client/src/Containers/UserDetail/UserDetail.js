@@ -2,6 +2,16 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Authentication from "../../Authentication";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    fontFamily: "'Open Sans Condensed', sans-serif"
+  }
+});
 
 class UserDetail extends React.Component {
   constructor(props) {
@@ -126,8 +136,9 @@ class UserDetail extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div>
+      <div className="LoginFormContainer">
         <form className="LoginForm">
           <label for="username">
             <b>
@@ -159,25 +170,35 @@ class UserDetail extends React.Component {
           />
           <br />
         </form>
-        <button
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
           onClick={event => {
             this.updateUser();
           }}
           type="submit"
         >
           UPDATE
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
           onClick={event => {
             this.deleteUser();
           }}
           type="submit"
         >
           DELETE
-        </button>
+        </Button>
       </div>
     );
   }
 }
 
-export default withRouter(UserDetail);
+UserDetail.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(UserDetail);

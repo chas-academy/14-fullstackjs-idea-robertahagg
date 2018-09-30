@@ -2,6 +2,19 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Authentication from "../../Authentication";
 import { withRouter } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    fontFamily: "'Open Sans Condensed', sans-serif"
+  },
+  input: {
+    display: "none"
+  }
+});
 
 class AddToDoForm extends React.Component {
   constructor(props) {
@@ -72,8 +85,9 @@ class AddToDoForm extends React.Component {
       });
   }
   render() {
+    const { classes } = this.props;
     return (
-      <div>
+      <div className="TodoFormContainer">
         <form className="LoginForm">
           <label for="title">
             <b>
@@ -115,13 +129,30 @@ class AddToDoForm extends React.Component {
           />
         </form>
 
-        <button onClick={this.handleSubmit} type="submit">
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={this.handleSubmit}
+          type="submit"
+        >
           ADD
-        </button>
-        <button type="cancel">CANCEL</button>
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          type="cancel"
+        >
+          CANCEL
+        </Button>
       </div>
     );
   }
 }
 
-export default withRouter(AddToDoForm);
+AddToDoForm.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(AddToDoForm);

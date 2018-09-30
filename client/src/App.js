@@ -4,10 +4,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Authentication from "./Authentication";
 
-import { TodosList } from "./Containers/";
+import { TodosList, MainBottomNavigation } from "./Containers/";
 import { AdminDashboardUsers } from "./Containers/";
-import { UserDetail } from "./Containers";
-import { TodoDetail } from "./Containers";
+
 import {
   BrowserRouter as Router,
   Link,
@@ -17,13 +16,10 @@ import {
 
 import {
   AddToDo,
-  AdminDashboard,
   AdminLogin,
   Login,
   LogOut,
-  Progress,
   Register,
-  ListView,
   Search,
   NotFoundPage,
   UserDetailView,
@@ -82,10 +78,8 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <PrivateRoute path="/logout" component={LogOut} />
             <PrivateRoute path="/addtodo" component={AddToDo} />
-            {/* <Route path="/listview/todo/:id" component={Not done yet!} /> */}
             <PrivateRoute path="/list" component={TodosList} />
             <PrivateRoute path="/todos/:id" component={TodoDetailView} />
-            <PrivateRoute path="/progress" component={Progress} />
             <PrivateRoute path="/search" component={Search} />
             <PrivateRoute path="/admin/login" component={AdminLogin} />
             <PrivateRoute
@@ -96,6 +90,8 @@ class App extends Component {
             <PrivateRoute component={NotFoundPage} />
           </Switch>
         </BrowserRouter>
+        <div className="bottomNavigationSpacer" />
+        <MainBottomNavigation />
       </div>
     );
   }

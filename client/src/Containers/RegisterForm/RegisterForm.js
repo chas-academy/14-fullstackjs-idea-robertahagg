@@ -1,5 +1,18 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+    fontFamily: "'Open Sans Condensed', sans-serif"
+  },
+  input: {
+    display: "none"
+  }
+});
 
 class RegisterForm extends React.Component {
   constructor(props) {
@@ -66,6 +79,7 @@ class RegisterForm extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
         <form className="LoginForm">
@@ -113,12 +127,22 @@ class RegisterForm extends React.Component {
             required
           />
         </form>
-        <button onClick={this.handleSubmit} type="submit">
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={this.handleSubmit}
+          type="submit"
+        >
           SIGN UP
-        </button>
+        </Button>
       </div>
     );
   }
 }
 
-export default RegisterForm;
+RegisterForm.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(RegisterForm);
